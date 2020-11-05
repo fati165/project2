@@ -1,6 +1,6 @@
 // Creating map object
 var myMap = L.map("map", {
-    center: [40.7128, -74.0059],
+    center: [37.7749, -122.4194],
     zoom: 11
   });
   
@@ -13,3 +13,5 @@ var myMap = L.map("map", {
     id: "mapbox/streets-v11",
     accessToken: API_KEY
   }).addTo(myMap);
+
+  
