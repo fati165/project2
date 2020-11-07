@@ -16,7 +16,12 @@ mongo = PyMongo(app)
 
 def homepage(): 
     # Find data
+    crimeinfo = mongo.db.crime_data.find_one()
     #marsinfo = mongo.db.marsdata.find_one()
 
     # Return template and data
+    return render_template("index.html", crimes_ = crimeinfo )
     #return render_template("index.html", mars_=marsinfo)
+
+if __name__ == "__main__":
+    app.run(debug=True)
