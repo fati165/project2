@@ -28,7 +28,7 @@
 
 /* background color of page */
 body{
-    background-color: #fffffffa
+    background-color: #fffffffa;
 }
 
 /* set container dimensions */
@@ -57,17 +57,18 @@ body{
 }
 
 /* leaflet map container */
+
+
 #map-container {
     position: relative;
     height: 450px;
     width: 940px;
+    margin-left: 100px;
 }
 #map {
     position: relative;
     height: 450px;
     width: 940px;
-    padding-bottom: 30px;
-    overflow: hidden;
 }
 
 /* user information */
