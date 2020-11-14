@@ -17,16 +17,61 @@ accessToken: API_KEY
 // geoJson data link
 var link = "static/pd.geojson";
 
-// styling for map
-var mapStyle = {
-  color: "red",
-  fill: false
-};
+// district colors
+function chooseColor(district) {
+  switch (district) {
+  case "SOUTHERN":
+    return "yellow";
+  case "CENTRAL":
+    return "red";
+  case "NORTHERN":
+    return "orange";
+  case "PARK":
+    return "green";
+  case "TARAVAL":
+    return "purple";
+  case "INGLESIDE":
+    return "blue";
+  case "BAYVIEW":
+    return "grey";
+  case "MISSION":
+    return "turquoise";
+  case "TENDERLOIN":
+    return "pink";
+  case "RICHMOND":
+    return "brown";
+  default:
+    return "black";
+  }
+}
 
 // adding geoJson layer
 
 d3.json(link, function(data){
   L.geoJson(data, {
-    style: mapStyle
+    style: function(feature) {
+      return {
+        color: "white",
+        fillColor: chooseColor(feature.properties.district),
+        fillOpacity: 0.3,
+      }; 
+    },
+    onEachFeature: function(feature, layer){
+      layer.on({
+        mouseover: function(event){
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.6
+          });
+        },
+        mouseout: function(event){
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.3
+          });
+        },
+      });
+      layer.bindPopup("<h2>" + feature.properties.district + "</h2>");
+    }
   }).addTo(myMap);
 });
