@@ -13,6 +13,13 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <!-- our CSS -->
     <link rel="stylesheet" href="static/style.css">
+    <!-- slimselect package CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.0/slimselect.min.css" rel="stylesheet"></link>
+    <!-- Marker Cluster CSS -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
+    
 </head>
 <body>
     <div class="hero text-center">
@@ -25,7 +32,7 @@
                 <div id = "graph"></div>
             </div>
             <div class = "col-md-6">
-                <p>In an effort to better understand the changing patterns of crime in San Francisco over the years, we invite our users to explore the provided graphics. To the left we have a chart and below we have provided a map as well as a drop down menu of target years. When one of the three available years is selected, the graph and map will change to reflect the data collected for that year. </p>
+                <p>In an effort to better understand the changing patterns of crime in San Francisco over the years, we invite our users to explore the provided graphics. To the left we have a chart and below we have provided a map as well as a drop down menu of target years. The map below illustrates the total collected incidents over the 3 year period the data originates from. The map is sectioned out by police district to give an overview of which regions experience the most crime. Users can click on a clustergroup or zoom in on the map to take a closer look at the block by block distribution of criminal activity. The data used has been cleaned of incidents of little pertinence to the safety of the average citizen, including but not limited to non-criminal reports, fires, forgery, warrants, and mischief.   </p>
                 <select id="selYear">
                     <option value = "2018">2018</option>
                     <option value = "2019">2019</option>
@@ -51,6 +58,12 @@
 <script type="text/javascript" src="static/config.js"></script>
 <!-- js script -->
 <script type="text/javascript" src="static/logic.js"></script>
+<!-- slimselect package JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.0/slimselect.min.js"></script>
+<!-- markercluster js -->
+<script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+
+
 
     
 </body>

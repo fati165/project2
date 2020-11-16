@@ -1,4 +1,5 @@
 
+
 // Creating map object
 var myMap = L.map("map", {
   center: [37.7749, -122.4194],
@@ -74,4 +75,28 @@ d3.json(link, function(data){
       layer.bindPopup("<h2>" + feature.properties.district + "</h2>");
     }
   }).addTo(myMap);
+});
+
+var baseURL = "http://127.0.0.1:5000/api/data";
+
+
+d3.json(baseURL, function(response) {
+
+  // Create a new marker cluster group
+  var markers = L.markerClusterGroup();
+
+  // Loop through data
+  for (var i = 0; i < response.length; i++) {
+
+    // Set the data location property to a variable
+    var latitude = response[i].Latitude;
+    var longitude = response[i].Longitude;
+
+    // Check for location property
+
+      // Add a new marker to the cluster group and bind a pop-up
+    markers.addLayer(L.marker([latitude, longitude]));
+    }
+  myMap.addLayer(markers);
+
 });

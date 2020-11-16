@@ -15,19 +15,18 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def homepage(): 
-    # Find data
-    # crimeinfo = mongo.db.crime_data.find_one()
-    #marsinfo = mongo.db.marsdata.find_one()
-
     # Return template and data
     return render_template("index.html")
-    #return render_template("index.html", mars_=marsinfo)
+    
 
 @app.route("/api/data")
 def data():
     crimeinfo = list(mongo.db.project2.find())
     return Response(json.dumps(crimeinfo,default=str),mimetype="application/json")
+    
+    
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
