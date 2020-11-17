@@ -1,3 +1,15 @@
+var apiKey = "pk.eyJ1IjoiZmF0aW1hMTU4MCIsImEiOiJja2dyYjY4MHQwMDdsMnRtNXNrMzMwYXd6In0.CgL5LKnOSUX07klUOtByJA";
+
+
+/* global Plotly */
+var url = "http://127.0.0.1:5000/api/data";
+d3.json(url,function(data){
+
+  // Grab values from the response json object to build the plots
+  var name = data.Incident_Date;
+
+  console.log(data);});
+
 /**
  * Helper function to select stock data
  * Returns an array of values
@@ -13,6 +25,12 @@
 
 // Submit Button handler
 function handleSubmit() {
+  d3.json(url,function(data){
+
+    // Grab values from the response json object to build the plots
+    var name = data.Incident_Date;
+
+    console.log(data);});
   // Prevent the page from refreshing
   // d3.event.preventDefault();
 
@@ -25,24 +43,27 @@ function handleSubmit() {
   d3.select("#selYear").node().value = "";
 
   // Build the plot with the new stock
-  buildPlot();
+//buildPlot();
+}
+
+function unpack(rows, index) {
+  return rows.map(function(row) {
+    return row[index];
+  });
 }
 
 function buildPlot() {
 
-  d3.json("static/file2.json").then(function(data) {
-    console.log(data)
+  // d3.json(url).then(function(data) {
+  d3.json(url,function(data){
+
     // Grab values from the response json object to build the plots
     var name = data.Incident_Date;
-    // var stock = data.dataset_code;
-    // var startDate = data.start_date;
-    // var endDate = data.end_date;
-    // Print the names of the columns
-    console.log(data);
-    // Print the data for each day
-    // console.log(data.dataset.data);
 
-    //in class
+    console.log(data);
+
+    // Print the data for each day
+
     //use map to build an array with map
     var dates = data.map(row => row["Incident Date"]);
     console.log(dates);
@@ -70,16 +91,26 @@ function buildPlot() {
       });
 
     console.log(categories);
-console.log(values);
+    console.log(values);
     
+    //init for dropdown
+
     //in class
     //use map to build an array with map for closing dates
     // var closingPrices = data.dataset.data.map(row => row[4]);
-    // console.log(closingPrices);
-
+    //do dates
     var maxDate= dates[dates.length-1];
 
     var minDate = dates[0];
+
+    var filterdata = []
+    data.foreach(row=> {
+      if (row["Incident Date"].includes("2018")){
+        filterdata.push(row)
+
+      }
+
+    })
 
     var trace1 = {
       type: "Bar",
@@ -94,10 +125,11 @@ console.log(values);
     var data = [trace1];
 
     var layout = {
-      title: "closing prices",
+      title: "date",
       xaxis: {
         range: [minDate, maxDate],
         type: "date"
+
       },
       yaxis: {
         autorange: true,
@@ -105,12 +137,17 @@ console.log(values);
       }
     };
 
-    Plotly.newPlot(document.getElementById("graph"), data);
+    // Plotly.newPlot(document.getElementById("graph"), data);
+    Plotly.newPlot("Bar", data, layout);
 
-  });
-}
+
+  }
+  );
+
+};
 
 // Add event listener for submit button
 // d3.select("#submit").on("click", handleSubmit);
-
-handleSubmit();
+d3.select("#selYear").on("click", handleSubmit);
+// handleSubmit();
+buildPlot();
