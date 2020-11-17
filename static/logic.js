@@ -1,52 +1,3 @@
-// // Creating map object
-// // Create a baseMaps object to hold the lightmap layer
-// var baseMaps = {
-// "Light Map": lightmap
-// };
-// var queryUrl = "https://data.sfgov.org/w/wkhw-cjsf/ikek-yizv?";
-
-// // Perform a GET request to the query URL
-// d3.json(queryUrl, function(data) {
-//   // Once we get a response, send the data.features object to the createFeatures function
-//   createFeatures(data.features);
-// });
-
-// // var myMap = L.map("link", {
-// //     center: [37.7749, -122.4194],
-// //     zoom: 12.5
-// // });
-// var link = "../../data/pd.geojson";
-
-// L.geoJson(link).addTo(myMap)
-// // Adding tile layer
-// L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-//   tileSize: 512,
-//   maxZoom: 18,
-//   zoomOffset: -1,
-//   id: "mapbox/streets-v11",
-//   accessToken: API_KEY
-// }).addTo(myMap);
-
-
-// adding pd district layer
-
-// d3.json(link, function(data){
-//   L.geojson(data, {
-//     style: function(feature){
-//       return {
-//         color: black,
-//         fillColor: white,
-//         fillOpacity: .5,
-//       };
-//     },
-//     onEachFeature: function(feature, layer){
-//       layer.bindPopup("<h1" + feature.properties.district + "<h1>");
-//     }
-//   }).addTo(myMap)
-// });
-
-
 
 
 // Creating map object
@@ -64,4 +15,88 @@ id: "mapbox/streets-v11",
 accessToken: API_KEY
 }).addTo(myMap);
 
-//var link = "../../data/pd.geojson";
+// geoJson data link
+var link = "static/pd.geojson";
+
+// district colors
+function chooseColor(district) {
+  switch (district) {
+  case "SOUTHERN":
+    return "yellow";
+  case "CENTRAL":
+    return "red";
+  case "NORTHERN":
+    return "orange";
+  case "PARK":
+    return "green";
+  case "TARAVAL":
+    return "purple";
+  case "INGLESIDE":
+    return "blue";
+  case "BAYVIEW":
+    return "grey";
+  case "MISSION":
+    return "turquoise";
+  case "TENDERLOIN":
+    return "pink";
+  case "RICHMOND":
+    return "brown";
+  default:
+    return "black";
+  }
+}
+
+// adding geoJson layer
+
+d3.json(link, function(data){
+  L.geoJson(data, {
+    style: function(feature) {
+      return {
+        color: "white",
+        fillColor: chooseColor(feature.properties.district),
+        fillOpacity: 0.3,
+      }; 
+    },
+    onEachFeature: function(feature, layer){
+      layer.on({
+        mouseover: function(event){
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.6
+          });
+        },
+        mouseout: function(event){
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.3
+          });
+        },
+      });
+      layer.bindPopup("<h2>" + feature.properties.district + "</h2>");
+    }
+  }).addTo(myMap);
+});
+
+var baseURL = "http://127.0.0.1:5000/api/data";
+
+
+d3.json(baseURL, function(response) {
+
+  // Create a new marker cluster group
+  var markers = L.markerClusterGroup();
+
+  // Loop through data
+  for (var i = 0; i < response.length; i++) {
+
+    // Set the data location property to a variable
+    var latitude = response[i].Latitude;
+    var longitude = response[i].Longitude;
+
+    // Check for location property
+
+      // Add a new marker to the cluster group and bind a pop-up
+    markers.addLayer(L.marker([latitude, longitude]));
+    }
+  myMap.addLayer(markers);
+
+});
