@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="static/style.css">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-fetch.v2.min.js"></script>
+    <!-- jquery button -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </head>
 <body>
@@ -23,22 +27,32 @@
         <p>Visualizing Criminal Activity in the City by the Bay</p>
     </div>
     <div class = "container">
+        <div class ="row">
+            <p>In an effort to better understand the changing patterns of crime in San Francisco over the years, we invite our users to explore the provided graphics. Select a year to see  breakdown of the occurence of crime in each one. Scroll down to view a map of every recorded incident since 2018 by police district. Note that data has been cleaned of offense categories less relevant to the health and safety of the average resident or visitor. These eliminated categories of offense include but are not limited to non-criminal, mischief, forgery, loitering, and warrants. </p>           
+        </div>
         <div class="row">
-            <div class = "col-md-8">
-                <div id = "Bar" class="mt-2 p-2"></div>
-                <div id = "Bar2" class="mt-2 p-2"></div>
-            </div>
             <div class = "col-md-4">
-                <p>In an effort to better understand the changing patterns of crime in San Francisco over the years, we invite our users to explore the provided graphics. To the left we have a chart and below we have provided a map as well as a drop down menu of target years. When one of the three available years is selected, the graph and map will change to reflect the data collected for that year. </p>
                 <select id="selYear">
                     <option value = "2018">2018</option>
                     <option value = "2019">2019</option>
                     <option value = "2020">2020</option>
-                </select>
-            </div>            
+                </select> 
+            </div>
+            <div class = "col-md-4">
+                <div class="widget">
+                    <a class="ui-button ui-widget ui-corner-all" href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783">view data source</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class = "col-md-8">
+                <div id = "Bar" class="mt-2 p-2"></div>
+            </div>
+            <div class = "col-md-8">
+                <div id = "Bar2" class="mt-2 p-2"></div>
+            </div>
         </div>
         <div id = "map-container">
-            
             <div id = "map"></div>
         </div>
     </div>
