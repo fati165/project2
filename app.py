@@ -22,6 +22,7 @@ def homepage():
 @app.route("/api/data")
 def data():
     crimeinfo = list(mongo.db.project2.find())
+    
     return Response(json.dumps(crimeinfo,default=str),mimetype="application/json")
     
     

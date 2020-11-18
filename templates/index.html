@@ -14,6 +14,8 @@
     <!-- our css -->
     <link rel="stylesheet" href="static/style.css">
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v2.min.js"></script>
+
 </head>
 <body>
     <div class="hero text-center">
@@ -22,10 +24,11 @@
     </div>
     <div class = "container">
         <div class="row">
-            <div class = "col-md-6">
-                <div id = "graph"></div>
+            <div class = "col-md-8">
+                <div id = "Bar" class="mt-2 p-2"></div>
+                <div id = "Bar2" class="mt-2 p-2"></div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <p>In an effort to better understand the changing patterns of crime in San Francisco over the years, we invite our users to explore the provided graphics. To the left we have a chart and below we have provided a map as well as a drop down menu of target years. When one of the three available years is selected, the graph and map will change to reflect the data collected for that year. </p>
                 <select id="selYear">
                     <option value = "2018">2018</option>
